@@ -1,3 +1,11 @@
+/*
+ * Nexus Compiler
+ * Lexer definitions
+ *
+ * This file defines the lexer class used by the Nexus compiler
+ * to tokenize source code into a stream of tokens.
+ */
+
 #ifndef LEXER_H
 #define LEXER_H
 
@@ -9,52 +17,80 @@
 namespace nexus {
 namespace frontend {
 
-// 词法分析器类
+/**
+ * Lexer class
+ *
+ * This class is responsible for tokenizing Nexus source code
+ * into a stream of tokens for the parser.
+ */
 class Lexer {
  public:
+  /**
+   * Constructs a new lexer
+   *
+   * @param source The source code to tokenize
+   */
   Lexer(const std::string& source);
     
-    // 获取下一个Token
+    /**
+     * Gets the next token from the source code
+     *
+     * @return The next token
+     */
     Token getNextToken();
     
-    // 回退一个Token
+    /**
+     * Puts back a token to be read again
+     *
+     * @param token The token to put back
+     */
     void ungetToken(const Token& token);
     
 private:
-    // 源代码
+    // Source code
     std::string source;
-    // 当前位置
+    // Current position in the source code
     size_t position;
-    // 当前行号
+    // Current line number
     int line;
-    // 当前列号
+    // Current column number
     int column;
-    // 回退的Token
+    // Ungot token
     Token* ungotToken;
-    // 关键字映射
+    // Keyword mapping
     std::unordered_map<std::string, TokenType> keywords;
     
-    // 初始化关键字映射
+    /**
+     * Initializes the keyword mapping
+     */
     void initKeywords();
     
-    // 辅助方法
+    /**
+     * Helper methods
+     */
     char peek() const;
     char advance();
     bool match(char expected);
     bool isAtEnd() const;
     
-    // 词法分析方法
+    /**
+     * Lexical analysis methods
+     */
     Token scanToken();
     Token identifier();
     Token number();
     Token string();
     Token character();
     
-    // 跳过空白和注释
+    /**
+     * Skips whitespace and comments
+     */
     void skipWhitespace();
     void skipComment();
     
-    // 创建Token
+    /**
+     * Creates tokens
+     */
     Token makeToken(TokenType type, const std::string& lexeme);
     Token errorToken(const std::string& message);
 };

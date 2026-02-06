@@ -5,7 +5,15 @@
 namespace nexus {
 namespace frontend {
 
-// 转换TokenType为字符串
+/**
+ * @brief 将TokenType枚举转换为字符串表示
+ * 
+ * 此函数接收一个TokenType枚举值，并返回其对应的字符串表示形式，
+ * 用于调试和错误报告。
+ * 
+ * @param type TokenType枚举值
+ * @return 对应的字符串表示
+ */
 std::string tokenTypeToString(TokenType type) {
   switch (type) {
     // 关键字
@@ -105,66 +113,73 @@ std::string tokenTypeToString(TokenType type) {
       return "DIVIDE_ASSIGN";
     case TokenType::MODULO_ASSIGN:
       return "MODULO_ASSIGN";
-        case TokenType::EQUAL: return "EQUAL";
-        case TokenType::NOT_EQUAL: return "NOT_EQUAL";
-        case TokenType::LESS: return "LESS";
-        case TokenType::LESS_EQUAL: return "LESS_EQUAL";
-        case TokenType::GREATER: return "GREATER";
-        case TokenType::GREATER_EQUAL: return "GREATER_EQUAL";
-        case TokenType::AND: return "AND";
-        case TokenType::OR: return "OR";
-        case TokenType::NOT: return "NOT";
-        case TokenType::BIT_AND: return "BIT_AND";
-        case TokenType::BIT_OR: return "BIT_OR";
-        case TokenType::BIT_XOR: return "BIT_XOR";
-        case TokenType::BIT_NOT: return "BIT_NOT";
-        case TokenType::LEFT_SHIFT: return "LEFT_SHIFT";
-        case TokenType::RIGHT_SHIFT: return "RIGHT_SHIFT";
-        case TokenType::UNSIGNED_RIGHT_SHIFT: return "UNSIGNED_RIGHT_SHIFT";
-        case TokenType::LEFT_SHIFT_ASSIGN: return "LEFT_SHIFT_ASSIGN";
-        case TokenType::RIGHT_SHIFT_ASSIGN: return "RIGHT_SHIFT_ASSIGN";
-        case TokenType::UNSIGNED_RIGHT_SHIFT_ASSIGN: return "UNSIGNED_RIGHT_SHIFT_ASSIGN";
-        case TokenType::BIT_AND_ASSIGN: return "BIT_AND_ASSIGN";
-        case TokenType::BIT_OR_ASSIGN: return "BIT_OR_ASSIGN";
-        case TokenType::BIT_XOR_ASSIGN: return "BIT_XOR_ASSIGN";
+    case TokenType::EQUAL: return "EQUAL";
+    case TokenType::NOT_EQUAL: return "NOT_EQUAL";
+    case TokenType::LESS: return "LESS";
+    case TokenType::LESS_EQUAL: return "LESS_EQUAL";
+    case TokenType::GREATER: return "GREATER";
+    case TokenType::GREATER_EQUAL: return "GREATER_EQUAL";
+    case TokenType::AND: return "AND";
+    case TokenType::OR: return "OR";
+    case TokenType::NOT: return "NOT";
+    case TokenType::BIT_AND: return "BIT_AND";
+    case TokenType::BIT_OR: return "BIT_OR";
+    case TokenType::BIT_XOR: return "BIT_XOR";
+    case TokenType::BIT_NOT: return "BIT_NOT";
+    case TokenType::LEFT_SHIFT: return "LEFT_SHIFT";
+    case TokenType::RIGHT_SHIFT: return "RIGHT_SHIFT";
+    case TokenType::UNSIGNED_RIGHT_SHIFT: return "UNSIGNED_RIGHT_SHIFT";
+    case TokenType::LEFT_SHIFT_ASSIGN: return "LEFT_SHIFT_ASSIGN";
+    case TokenType::RIGHT_SHIFT_ASSIGN: return "RIGHT_SHIFT_ASSIGN";
+    case TokenType::UNSIGNED_RIGHT_SHIFT_ASSIGN: return "UNSIGNED_RIGHT_SHIFT_ASSIGN";
+    case TokenType::BIT_AND_ASSIGN: return "BIT_AND_ASSIGN";
+    case TokenType::BIT_OR_ASSIGN: return "BIT_OR_ASSIGN";
+    case TokenType::BIT_XOR_ASSIGN: return "BIT_XOR_ASSIGN";
         
-        // 标点符号
-        case TokenType::SEMICOLON: return "SEMICOLON";
-        case TokenType::COLON: return "COLON";
-        case TokenType::COMMA: return "COMMA";
-        case TokenType::DOT: return "DOT";
-        case TokenType::LEFT_PAREN: return "LEFT_PAREN";
-        case TokenType::RIGHT_PAREN: return "RIGHT_PAREN";
-        case TokenType::LEFT_BRACE: return "LEFT_BRACE";
-        case TokenType::RIGHT_BRACE: return "RIGHT_BRACE";
-        case TokenType::LEFT_BRACKET: return "LEFT_BRACKET";
-        case TokenType::RIGHT_BRACKET: return "RIGHT_BRACKET";
-        case TokenType::ARROW: return "ARROW";
-        case TokenType::DOUBLE_COLON: return "DOUBLE_COLON";
+    // 标点符号
+    case TokenType::SEMICOLON: return "SEMICOLON";
+    case TokenType::COLON: return "COLON";
+    case TokenType::COMMA: return "COMMA";
+    case TokenType::DOT: return "DOT";
+    case TokenType::LEFT_PAREN: return "LEFT_PAREN";
+    case TokenType::RIGHT_PAREN: return "RIGHT_PAREN";
+    case TokenType::LEFT_BRACE: return "LEFT_BRACE";
+    case TokenType::RIGHT_BRACE: return "RIGHT_BRACE";
+    case TokenType::LEFT_BRACKET: return "LEFT_BRACKET";
+    case TokenType::RIGHT_BRACKET: return "RIGHT_BRACKET";
+    case TokenType::ARROW: return "ARROW";
+    case TokenType::DOUBLE_COLON: return "DOUBLE_COLON";
         
-        // 字面量
-        case TokenType::IDENTIFIER: return "IDENTIFIER";
-        case TokenType::INTEGER: return "INTEGER";
-        case TokenType::FLOAT: return "FLOAT";
-        case TokenType::STRING: return "STRING";
-        case TokenType::CHARACTER: return "CHARACTER";
+    // 字面量
+    case TokenType::IDENTIFIER: return "IDENTIFIER";
+    case TokenType::INTEGER: return "INTEGER";
+    case TokenType::FLOAT: return "FLOAT";
+    case TokenType::STRING: return "STRING";
+    case TokenType::CHARACTER: return "CHARACTER";
         
-        // 特殊标记
-        case TokenType::END_OF_FILE: return "END_OF_FILE";
-        case TokenType::ERROR: return "ERROR";
+    // 特殊标记
+    case TokenType::END_OF_FILE: return "END_OF_FILE";
+    case TokenType::ERROR: return "ERROR";
         
-        default: return "UNKNOWN";
-    }
+    default: return "UNKNOWN";
+  }
 }
 
-// 实现toString方法
+/**
+ * @brief 将Token对象转换为字符串表示
+ * 
+ * 此方法生成Token对象的详细字符串表示，包括其类型、词素、行号和列号，
+ * 用于调试和错误报告。
+ * 
+ * @return Token对象的字符串表示
+ */
 std::string Token::toString() const {
-    std::stringstream ss;
-    ss << "Token{type=" << tokenTypeToString(type) 
-       << ", lexeme=\"" << lexeme << "\""
-       << ", line=" << line 
-       << ", column=" << column << "}";
-    return ss.str();
+  std::stringstream ss;
+  ss << "Token{type=" << tokenTypeToString(type) 
+     << ", lexeme=\"" << lexeme << "\""
+     << ", line=" << line 
+     << ", column=" << column << "}";
+  return ss.str();
 }
 
 } // namespace frontend
